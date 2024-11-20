@@ -32,15 +32,14 @@ function formatDate(data) {
   ];
   let day = days[data.getDate()];
   if (minutes < 10) {
-    minutes = "0${minutes}";
+    minutes = `0${minutes}`;
   }
-  return "${day} ${hours}:${minutes}";
+  return `${day} ${hours}:${minutes}`;
 }
 
 function searchCity(city) {
   let apiKEY = "0aed8e05tadf246fo437cfb406113d46";
-  let apiUrl =
-    "https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
   axios.get(apiUrl).then(updateWeather);
 }
 
