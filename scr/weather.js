@@ -7,15 +7,15 @@ function updateWeather(response) {
   let windSpeedElement = document.querySelector("#wind-speed");
   let timeElement = document.querySelector("#time");
   let date = new Date(response.date.time * 1000);
-  let icon = '<img src="${esponse" class="weather-app-icon" />';
+  let iconElement = document.querySelector("#icon");
 
-  cityElement.innerHTML = formatDate(data);
+  cityElement.innerHTML = response.data.city;
+  timeElement.innerHTML = formatDate(data);
   temperatureElement.innerHTML = Math.round(temperature);
   descriptionElement.innerHTML = response.data.condition.description;
-  humilityElement.innerHTML = "${response.data.temperature.humility}%";
-  windSpeedElement.innerHTML = "${response.data.wind.speed}km/h";
-  timeElement.innerHTML =
-    "${data.getDate()}:${data.getHour()}:${date.getMinutes()}";
+  humilityElement.innerHTML = `${response.data.temperature.humility}%`;
+  windSpeedElement.innerHTML = `${response.data.wind.speed}km/h`;
+  iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;
 }
 
 function formatDate(data) {
@@ -40,7 +40,7 @@ function formatDate(data) {
 function searchCity(city) {
   let apiKEY = "0aed8e05tadf246fo437cfb406113d46";
   let apiUrl =
-    "https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&unit=metric";
+    "https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}";
   axios.get(apiUrl).then(updateWeather);
 }
 
@@ -52,4 +52,5 @@ function handleSearchSubmit(event) {
 }
 let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventlistener("submit", handleSearchSubmit);
+
 searchCity("Pretoria");
